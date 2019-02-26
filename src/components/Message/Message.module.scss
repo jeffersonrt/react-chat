@@ -1,26 +1,80 @@
+@import "../../styles/variables/variables";
+
 // Message Module
-
-.messageWrapper {
+.message-wrapper-left {
+  position: relative;
   margin-bottom: 20px;
-  background: #ccc;
 }
 
-.messageData {
+.message-data {
+  padding-bottom: 5px;
 }
 
-.messageUsername {
-  color: "#555";
+.message-username {
+  color: $primary;
   font-size: 0.8em;
   font-weight: bold;
-  font-family: "Montserrat", sans-serif;
+  font-family: $fontFamily;
 }
 
-.messageTime {
-  color: red;
+.message-time {
+  margin-left: $baseMargin/2;
+  color: $secondary;
   font-size: 0.7em;
-  font-weight: bold;
-  font-family: "Montserrat", sans-serif;
+  font-family: $fontFamily;
 }
 
-.messageText {
+.message-text-container {
+  display: flex;
+}
+
+.message-text {
+  position: relative;
+  margin: 0 0 0 10px;
+  padding: $basePadding/2;
+  border-radius: $baseRadius;
+  color: $secondary;
+  font-size: 0.85em;
+  // box-shadow: 2px 3px 4px rgba($primary, 0.1);
+  background: rgba($white, 1);
+
+  &:before {
+    content: "";
+    width: 0;
+    height: 0;
+    position: absolute;
+    top: 0px;
+    left: -10px;
+    border-style: solid;
+    border-width: 0 15px 15px 0;
+    border-color: transparent $white transparent transparent;
+  }
+}
+
+.message-wrapper-right {
+  @extend .message-wrapper-left;
+
+  .message-data {
+    text-align: right;
+  }
+  .message-username {
+    display: none;
+  }
+  .message-text-container {
+    justify-content: flex-end;
+
+    .message-text {
+      color: $dark;
+      margin: 0 10px 0 0;
+      // box-shadow: 2px 2px 3px rgba($secondary, 0.2);
+      background: rgba($primaryLight, 1);
+      &:before {
+        left: auto;
+        right: -10px;
+        border-style: solid;
+        border-width: 0 0 15px 15px;
+        border-color: transparent transparent transparent $primaryLight;
+      }
+    }
+  }
 }

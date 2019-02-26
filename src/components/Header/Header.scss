@@ -1,0 +1,47 @@
+// Header Component Styles
+
+@import "../../styles/variables/variables";
+
+.main-menu {
+  display: flex;
+  position: relative;
+  box-sizing: border-box;
+  justify-content: space-between;
+  height: 50px;
+
+  a {
+    @extend .link-menu;
+  }
+}
+
+.link-menu {
+  display: flex;
+  position: relative;
+  padding: $basePadding;
+  align-items: center;
+  font-weight: 600;
+  text-decoration: none;
+  color: $secondary;
+}
+
+.menu-notification {
+  &:after {
+    content: "";
+    width: 10px;
+    height: 10px;
+    position: absolute;
+    top: $basePadding/2;
+    right: $basePadding/2;
+    border-radius: 5px;
+    background: $primary;
+  }
+}
+
+.menu-active {
+  // border-top: 2px solid $transparent;
+  border-bottom: 2px solid $primary;
+}
+
+.menu-chat {
+  @extend .menu-notification;
+}

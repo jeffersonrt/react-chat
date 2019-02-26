@@ -1,0 +1,37 @@
+// Chat page
+
+@import "../../styles/variables/variables";
+
+.chat-container {
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  background: rgba($primaryLighter, 0.4);
+}
+
+.chat-history {
+  flex: 1 1 0;
+  overflow-y: auto;
+  padding: $basePadding/2 $basePadding;
+}
+
+.chat-footer {
+  display: flex;
+  height: 50px;
+  background: $white;
+
+  input {
+    flex: 1 1 0;
+    border: none;
+    padding: $basePadding/2;
+    color: $secondary;
+  }
+
+  button {
+    appearance: none;
+    border: none;
+    min-width: 60px;
+    color: $primary;
+  }
+}

@@ -1,13 +1,24 @@
 import React from "react";
-import { Link, withRouter } from "react-router-dom";
+import { NavLink, withRouter } from "react-router-dom";
 
-const Header = props => {
-  // console.log(props);
+import "./Header.scss";
+
+const Header = ({ location }) => {
+  console.log(location.pathname);
 
   return (
-    <header>
-      <Link to="/">Chat</Link>
-      <Link to="/settings">Settings</Link>
+    <header className="main-menu">
+      <NavLink exact className="menu-chat" activeClassName="menu-active" to="/">
+        Chat
+      </NavLink>
+      <NavLink
+        exact
+        className="menu-settings"
+        activeClassName="menu-active"
+        to="/settings"
+      >
+        Settings
+      </NavLink>
     </header>
   );
 };

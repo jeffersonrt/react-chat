@@ -2,16 +2,17 @@ import React from "react";
 import PropTypes from "prop-types";
 import styles from "./Message.module.scss";
 
-const Message = ({ user, date, message }) => {
-  const isMe = !!user;
-
+const Message = ({ user = "current", date, message }) => {
+  const postion = user === "current" ? "right" : "left";
   return (
-    <div className={styles.messageWrapper}>
-      <div className={styles.messageData}>
-        {isMe && <span className={styles.messageUsername}>{user}</span>}
-        <span className={styles.messageTime}>{date}</span>
+    <div className={styles[`message-wrapper-${postion}`]}>
+      <div className={styles["message-data"]}>
+        <span className={styles["message-username"]}>{user}</span>
+        <span className={styles["message-time"]}>{date}</span>
       </div>
-      <div className={styles.messageText}>{message}</div>
+      <div className={styles["message-text-container"]}>
+        <span className={styles["message-text"]}>{message}</span>
+      </div>
     </div>
   );
 };
