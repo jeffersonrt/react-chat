@@ -9,6 +9,7 @@ import InputMessage from '../../components/InputMessage/InputMessage';
 import { addMessage } from '../../store/actions';
 
 import './Chat.scss';
+
 const socket = io(env.SOCKET_URL);
 
 class Chat extends Component {
@@ -21,14 +22,23 @@ class Chat extends Component {
     // console.log(this.props);
     this.socket();
   }
+  componentWillUnmount() {
+    console.log('componentWillUnmount');
+  }
 
   socket() {
     const { addMessage } = this.props;
-    socket.on(message => {
+    socket.on('receivedMessage', message => {
       addMessage({
         userId: message.userId,
         username: message.username,
         text: message.text
+      });
+    });
+
+    socket.on('previousMessages', function(messages) {
+      messages.forEach(message => {
+        addMessage(message);
       });
     });
   }

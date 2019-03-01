@@ -1,13 +1,9 @@
 const express = require('express');
-// var cors = require('cors');
 const path = require('path');
 
 const app = express();
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
-// io.origins('*:*');
-
-// app.use(cors());
 
 app.use(express.static(path.join(__dirname, '../public')));
 
@@ -24,7 +20,7 @@ io.on('connection', socket => {
   console.log(`Socket conectado: ${socket.id}`);
   socket.emit('previousMessages', messages);
   socket.on('sendMessage', data => {
-    console.log(`sendMessage: ${data}`);
+    console.log('sendMessage:', messages);
     messages.push(data);
     socket.broadcast.emit('receivedMessage', data);
   });
