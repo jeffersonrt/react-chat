@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
+
 import { ToastContainer, toast } from 'react-toastify';
 
 import { settingsUpdate, settingsReset } from '../../store/actions';
@@ -33,6 +34,7 @@ class SettingsForm extends Component {
 
   render() {
     const { handleSubmit } = this.props;
+
     return (
       <section className="settings-container">
         <div className="options">

@@ -13,7 +13,6 @@ export const addMessage = message => async dispatch => {
 };
 
 export const messageReceived = message => async dispatch => {
-  console.log('message', message);
   dispatch({
     type: 'message/RECEIVED',
     payload: {
@@ -21,6 +20,13 @@ export const messageReceived = message => async dispatch => {
       username: message.username,
       text: message.text
     }
+  });
+};
+
+export const messageNotification = message => async dispatch => {
+  dispatch({
+    type: 'message/NOTIFICATION',
+    payload: [...message]
   });
 };
 
@@ -36,10 +42,3 @@ export const settingsReset = () => dispatch => {
     type: 'settings/RESET'
   });
 };
-
-// export const addUser = user => async dispatch => {
-//   dispatch({
-//     type: 'ADD_USER',
-//     payload: user
-//   });
-// };

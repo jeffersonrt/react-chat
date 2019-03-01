@@ -3,20 +3,18 @@ import React from 'react';
 
 import { formatDate } from '../../utils';
 
-import styles from './Message.module.scss';
+import './Message.scss';
 
 const Message = ({ username, date, format, text }) => {
   const postion = username === 'current' ? 'right' : 'left';
   return (
-    <div className={styles[`message-wrapper-${postion}`]}>
-      <div className={styles['message-data']}>
-        <span className={styles['message-username']}>{username}</span>
-        <span className={styles['message-time']}>
-          {formatDate(date, format)}
-        </span>
+    <div className={`message-wrapper-${postion}`}>
+      <div className="message-data">
+        <span className="message-username">{username}</span>
+        <span className="message-time">{formatDate(date, format)}</span>
       </div>
-      <div className={styles['message-text-container']}>
-        <span className={styles['message-text']}>{text}</span>
+      <div className="message-text-container">
+        <span className="message-text">{text}</span>
       </div>
     </div>
   );

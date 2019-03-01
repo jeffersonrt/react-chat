@@ -1,0 +1,51 @@
+/*
+ * THEME-SYSTEM
+ */
+
+@import 'variables/colors';
+
+$themes: (
+  light: (
+    primary: $primary,
+    secondary: $primaryLight,
+    bg: $white,
+    bg-page: rgba($primaryLighter, 0.4),
+    bg-page-secondary: rgba($secondary, 0.2),
+    text: $secondary,
+    text-secondary: $primary,
+    text-tertiary: $dark
+  ),
+  dark: (
+    primary: $primaryLight,
+    secondary: $secondaryDark,
+    bg: $dark,
+    bg-page: $black,
+    bg-page-secondary: $secondaryDark,
+    text: $lighter,
+    text-secondary: $primaryLighter,
+    text-tertiary: $primary
+  )
+);
+
+@mixin themed() {
+  @each $theme, $map in $themes {
+    .theme--#{$theme} & {
+      $theme-map: () !global;
+      @each $key, $submap in $map {
+        $value: map-get(map-get($themes, $theme), '#{$key}');
+        $theme-map: map-merge(
+          $theme-map,
+          (
+            $key: $value
+          )
+        ) !global;
+      }
+      @content;
+      $theme-map: null !global;
+    }
+  }
+}
+
+@function themify($key) {
+  @return map-get($theme-map, $key);
+}

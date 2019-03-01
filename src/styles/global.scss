@@ -1,6 +1,8 @@
-// Global styles
+/*
+ * GLOBAL
+ */
 
-@import "./variables/variables";
+@import './variables/variables';
 
 body {
   margin: 0;
@@ -8,7 +10,7 @@ body {
   font-family: $fontFamily;
 }
 
-#root {
+#app-wrapper {
   display: flex;
   flex-direction: column;
   height: 100vh;

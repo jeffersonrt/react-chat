@@ -1,6 +1,9 @@
-// Header Component Styles
+/*
+ * HEADER COMPONENT
+ */
 
-@import "../../styles/variables/variables";
+@import '../../styles/themes';
+@import '../../styles/variables/variables';
 
 .main-menu {
   display: flex;
@@ -12,6 +15,9 @@
   a {
     @extend .link-menu;
   }
+  @include themed() {
+    background: themify('bg');
+  }
 }
 
 .link-menu {
@@ -21,25 +27,33 @@
   align-items: center;
   font-weight: 600;
   text-decoration: none;
-  color: $secondary;
+
+  @include themed() {
+    color: themify('text');
+  }
 }
 
 .menu-notification {
   &:after {
-    content: "";
+    content: '';
     width: 10px;
     height: 10px;
     position: absolute;
     top: $basePadding/2;
     right: $basePadding/2;
     border-radius: 5px;
-    background: $primary;
+
+    @include themed() {
+      background: themify('primary');
+    }
   }
 }
 
 .menu-active {
   // border-top: 2px solid $transparent;
-  border-bottom: 2px solid $primary;
+  @include themed() {
+    border-bottom: 2px solid themify('primary');
+  }
 }
 
 .menu-chat {

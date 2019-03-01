@@ -1,5 +1,6 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import './styles/global.scss';
 
@@ -9,13 +10,17 @@ import Header from './components/Header/Header';
 // Routes
 import Routes from './routes';
 
-const App = () => (
+const App = props => (
   <BrowserRouter>
-    <Fragment>
+    <div id="app-wrapper" className={`theme--${props.settings.theme}`}>
       <Header />
       <Routes />
-    </Fragment>
+    </div>
   </BrowserRouter>
 );
 
-export default App;
+const mapStateToProps = state => ({
+  settings: state.settings
+});
+
+export default connect(mapStateToProps)(App);
