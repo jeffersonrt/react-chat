@@ -45,6 +45,11 @@ class Chat extends Component {
       if (location.pathname === '/settings') {
         notificationAdd();
       }
+
+      let to = setTimeout(() => {
+        clearTimeout(to);
+        this.scrollMessages();
+      }, 100);
     });
 
     socket.on('previousMessages', messages => {

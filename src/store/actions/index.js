@@ -16,6 +16,8 @@ export const messageReceived = message => async dispatch => {
   dispatch({
     type: 'message/RECEIVED',
     payload: {
+      id: message.id,
+      date: message.date,
       userId: message.userId,
       username: message.username,
       text: message.text

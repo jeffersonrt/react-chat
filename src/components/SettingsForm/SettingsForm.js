@@ -21,7 +21,6 @@ class SettingsForm extends Component {
 
   handleUpdate = () => {
     const { settingsUpdate } = this.props;
-    console.log(this.props);
     settingsUpdate(this.props.user.settings.values);
     this.notify();
   };
