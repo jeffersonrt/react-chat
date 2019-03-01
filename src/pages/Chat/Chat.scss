@@ -1,6 +1,6 @@
 // Chat page
 
-@import "../../styles/variables/variables";
+@import '../../styles/variables/variables';
 
 .chat-container {
   flex: 1 1 0;
@@ -13,6 +13,7 @@
 .chat-history {
   flex: 1 1 0;
   overflow-y: auto;
+  scroll-behavior: smooth;
   padding: $basePadding/2 $basePadding;
 }
 
@@ -20,6 +21,12 @@
   display: flex;
   height: 50px;
   background: $white;
+
+  form {
+    flex: 1 1 0;
+    display: flex;
+    background: red;
+  }
 
   input {
     flex: 1 1 0;
@@ -32,6 +39,7 @@
     appearance: none;
     border: none;
     min-width: 60px;
-    color: $primary;
+    color: $white;
+    background: $primary;
   }
 }

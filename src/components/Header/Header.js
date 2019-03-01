@@ -1,11 +1,9 @@
-import React from "react";
-import { NavLink, withRouter } from "react-router-dom";
+import React from 'react';
+import { NavLink, withRouter } from 'react-router-dom';
 
-import "./Header.scss";
+import './Header.scss';
 
 const Header = ({ location }) => {
-  console.log(location.pathname);
-
   return (
     <header className="main-menu">
       <NavLink exact className="menu-chat" activeClassName="menu-active" to="/">

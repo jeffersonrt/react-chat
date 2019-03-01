@@ -1,12 +1,12 @@
 // Settings page
 
-@import "../../styles/variables/variables";
+@import '../../styles/variables/variables';
 
 .settings-container {
   flex: 1 1 0;
   display: flex;
   flex-direction: column;
-  background: rgba($secondary, 0.3);
+  background: rgba($secondary, 0.2);
 }
 
 .options {
@@ -17,8 +17,47 @@
 }
 
 .form-container {
-  width: 80vw;
-  height: 80vw;
+  padding: $basePadding $basePadding * 2;
+  background: $white;
+
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .form-field {
+    margin: $baseMargin/2 0;
+    p {
+      color: $secondary;
+      margin: 0 0 $baseMargin/2 0;
+      font-weight: bold;
+    }
+    span {
+      color: $dark;
+      font-size: 0.9em;
+    }
+  }
+
+  .field-radio {
+    label {
+      margin-right: $baseMargin;
+    }
+  }
+
+  input[type='radio'] {
+    margin-right: 6px;
+  }
+  input[type='text'] {
+    box-sizing: border-box;
+    width: 100%;
+    font-size: 1em;
+    padding: $basePadding/2;
+  }
+
+  select {
+    width: 100%;
+    height: 40px;
+  }
 }
 
 .reset {

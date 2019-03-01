@@ -1,111 +1,100 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import io from 'socket.io-client';
 
-import Message from "../../components/Message/Message";
+import Message from '../../components/Message/Message';
+import InputMessage from '../../components/InputMessage/InputMessage';
+import { addMessage } from '../../store/actions';
+import env from '../../env';
 
-import "./Chat.scss";
+import './Chat.scss';
+
+const socket = io(env.SOCKET_URL);
 
 class Chat extends Component {
-  state = {
-    messages: [
-      {
-        id: 1,
-        user: "Vincent",
-        date: "10:12 AM, Today",
-        text:
-          "Are we meeting today? Project has been already finished and I have results to show you."
-      },
-      {
-        id: 2,
-        user: "current",
-        date: "10:12 AM, Today",
-        text: "Yes"
-      },
-      {
-        id: 3,
-        user: "Vincent",
-        date: "10:13 AM, Today",
-        text: "Ok, I will take with me"
-      },
-      {
-        id: 4,
-        user: "current",
-        date: "10:14 AM, Today",
-        text: "I,m wainting for you"
-      },
-      {
-        id: 5,
-        user: "current",
-        date: "10:14 AM, Today",
-        text: "at 3pm"
-      },
-      {
-        id: 6,
-        user: "Vincent",
-        date: "10:15 AM, Today",
-        text: "ok"
-      },
-      {
-        id: 7,
-        user: "Vincent",
-        date: "10:15 AM, Today",
-        text: "See you"
-      },
-      {
-        id: 22,
-        user: "current",
-        date: "10:12 AM, Today",
-        text: "Yes"
-      },
-      {
-        id: 32,
-        user: "Vincent",
-        date: "10:13 AM, Today",
-        text: "Ok, I will take with me"
-      },
-      {
-        id: 31,
-        user: "Vincent",
-        date: "10:12 AM, Today",
-        text:
-          "Are we meeting today? Project has been already finished and I have results to show you."
-      },
-      {
-        id: 452,
-        user: "current",
-        date: "10:12 AM, Today",
-        text: "Yes"
-      },
-      {
-        id: 53,
-        user: "Vincent",
-        date: "10:13 AM, Today",
-        text: "Ok, I will take with me"
-      }
-    ]
+  constructor(props) {
+    super(props);
+    this.msgContainer = React.createRef();
+  }
+
+  componentDidMount() {
+    this.socket();
+  }
+
+  socket() {
+    const { addMessage } = this.props;
+
+    socket.on('receivedMessage', function(message) {
+      console.log('receivedMessage', message);
+      addMessage({
+        userId: message.userId,
+        username: message.user,
+        text: message.text
+      });
+    });
+  }
+
+  handleSubmit = text => {
+    const { addMessage, settings } = this.props;
+
+    console.log(settings.username);
+
+    let message = {
+      userId: settings.userId,
+      username: settings.username,
+      text: text
+    };
+
+    addMessage(message);
+    socket.emit('sendMessage', message);
+    this.scrollMessages();
   };
 
-  render() {
-    const { messages } = this.state;
+  scrollMessages = () =>
+    (this.msgContainer.current.scrollTop = this.msgContainer.current.scrollHeight);
 
+  render() {
+    const { messages, settings } = this.props;
     return (
       <section className="chat-container">
-        <div className="chat-history">
-          {messages.map(message => (
-            <Message
-              key={message.id}
-              user={message.user}
-              date={message.date}
-              message={message.text}
-            />
-          ))}
+        <div ref={this.msgContainer} className="chat-history">
+          {messages.map(message => {
+            // let teste =
+            //   message.userId === settings.userId ? 'current' : message.username;
+            // console.log('teste-username', teste);
+            // console.log('message', message);
+            return (
+              <Message
+                key={message.id}
+                username={
+                  message.userId === settings.userId
+                    ? 'current'
+                    : message.username
+                }
+                date={message.date}
+                format={settings.timeFormat}
+                text={message.text}
+              />
+            );
+          })}
         </div>
         <div className="chat-footer">
-          <input type="text" />
-          <button>Send</button>
+          <InputMessage
+            onMessageSumit={this.handleSubmit}
+            controlEnter={settings.ctrlEnter === 'on'}
+          />
         </div>
       </section>
     );
   }
 }
 
-export default Chat;
+const mapStateToProps = state => ({
+  messages: state.messages,
+  settings: state.settings
+});
+
+export default connect(
+  mapStateToProps,
+  { addMessage }
+)(Chat);
