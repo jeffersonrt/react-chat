@@ -20,9 +20,9 @@ class SettingsForm extends Component {
     });
 
   handleFieldsChange = e => {
+    console.log(this.props);
     const { settingsUpdate } = this.props;
     settingsUpdate(this.props.user.settings.values);
-
     this.notify();
   };
 
@@ -54,6 +54,7 @@ class SettingsForm extends Component {
 
               <div className="form-field field-radio">
                 <p>Interface color</p>
+
                 <label>
                   <Field
                     name="theme"

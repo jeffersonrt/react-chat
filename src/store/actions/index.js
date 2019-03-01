@@ -23,10 +23,16 @@ export const messageReceived = message => async dispatch => {
   });
 };
 
-export const messageNotification = message => async dispatch => {
+// ACTIONS NOTIFICATIONS
+export const notificationAdd = () => async dispatch => {
   dispatch({
-    type: 'message/NOTIFICATION',
-    payload: [...message]
+    type: 'notification/ADD'
+  });
+};
+
+export const notificationReset = () => async dispatch => {
+  dispatch({
+    type: 'notification/RESET'
   });
 };
 
@@ -37,6 +43,7 @@ export const settingsUpdate = settings => dispatch => {
     payload: settings
   });
 };
+
 export const settingsReset = () => dispatch => {
   dispatch({
     type: 'settings/RESET'

@@ -15,6 +15,7 @@
   a {
     @extend .link-menu;
   }
+
   @include themed() {
     background: themify('bg');
   }
@@ -33,29 +34,27 @@
   }
 }
 
-.menu-notification {
-  &:after {
-    content: '';
-    width: 10px;
-    height: 10px;
-    position: absolute;
-    top: $basePadding/2;
-    right: $basePadding/2;
-    border-radius: 5px;
-
-    @include themed() {
-      background: themify('primary');
-    }
-  }
-}
-
 .menu-active {
-  // border-top: 2px solid $transparent;
   @include themed() {
     border-bottom: 2px solid themify('primary');
   }
 }
 
-.menu-chat {
-  @extend .menu-notification;
+.counter-disable {
+  display: none;
+}
+.counter-active {
+  font-size: 0.5em;
+  font-weight: 400;
+  position: absolute;
+  top: $basePadding/2;
+  right: 5px;
+  padding: 2px 5px;
+  color: $white;
+  border-radius: 50px;
+  background: $primary;
+
+  @include themed() {
+    background: themify('primary');
+  }
 }

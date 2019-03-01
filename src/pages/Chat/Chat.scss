@@ -8,8 +8,9 @@
 .chat-container {
   flex: 1 1 0;
   display: flex;
-  flex-direction: column;
-  position: relative;
+  overflow-y: auto;
+  scroll-behavior: smooth;
+
   @include themed() {
     background: themify('bg-page');
   }
@@ -17,8 +18,6 @@
 
 .chat-history {
   flex: 1 1 0;
-  overflow-y: auto;
-  scroll-behavior: smooth;
   padding: $basePadding/2 $basePadding;
 }
 

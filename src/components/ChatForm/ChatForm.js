@@ -33,15 +33,17 @@ export default class InputMessage extends Component {
 
   render() {
     return (
-      <form onSubmit={this.onFormSubmit}>
-        <input
-          type="text"
-          onKeyDown={this.handleKeyPress}
-          onChange={e => this.setState({ inputMessage: e.target.value })}
-          value={this.state.inputMessage}
-        />
-        <button type="submit">Send</button>
-      </form>
+      <div className="chat-footer">
+        <form onSubmit={this.onFormSubmit}>
+          <input
+            type="text"
+            onKeyDown={this.handleKeyPress}
+            onChange={e => this.setState({ inputMessage: e.target.value })}
+            value={this.state.inputMessage}
+          />
+          <button type="submit">Send</button>
+        </form>
+      </div>
     );
   }
 }

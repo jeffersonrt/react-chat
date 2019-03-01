@@ -16,16 +16,18 @@ app.use('/', (req, res) => {
 });
 
 let messages = [];
+
 io.on('connection', socket => {
   console.log(`Socket conectado: ${socket.id}`);
+
   socket.emit('previousMessages', messages);
+
   socket.on('sendMessage', data => {
-    console.log('sendMessage:', messages);
     messages.push(data);
     socket.broadcast.emit('receivedMessage', data);
   });
 });
 
 server.listen(3001, function() {
-  console.log('SOCKET SERVER UP | listening on *:3001');
+  console.log('SERVER UP | listening on *:3001');
 });

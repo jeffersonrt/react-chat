@@ -1,12 +1,16 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 
 import io from 'socket.io-client';
 import env from '../../env';
 
 import Message from '../../components/Message/Message';
-import InputMessage from '../../components/InputMessage/InputMessage';
-import { addMessage } from '../../store/actions';
+import ChatForm from '../../components/ChatForm/ChatForm';
+import {
+  addMessage,
+  notificationAdd,
+  notificationReset
+} from '../../store/actions';
 
 import './Chat.scss';
 
@@ -15,31 +19,39 @@ const socket = io(env.SOCKET_URL);
 class Chat extends Component {
   constructor(props) {
     super(props);
-    this.msgContainer = React.createRef();
+    this.chatContainer = React.createRef();
   }
 
   componentDidMount() {
-    // console.log(this.props);
+    const { notificationReset } = this.props;
+    notificationReset();
     this.socket();
-  }
-  componentWillUnmount() {
-    console.log('componentWillUnmount');
+    this.scrollMessages();
   }
 
   socket() {
-    const { addMessage } = this.props;
+    socket.removeAllListeners();
+    const { addMessage, notificationAdd } = this.props;
+
     socket.on('receivedMessage', message => {
+      const { location } = this.props.history;
+
       addMessage({
         userId: message.userId,
         username: message.username,
         text: message.text
       });
+
+      if (location.pathname === '/settings') {
+        notificationAdd();
+      }
     });
 
-    socket.on('previousMessages', function(messages) {
+    socket.on('previousMessages', messages => {
       messages.forEach(message => {
         addMessage(message);
       });
+      this.scrollMessages();
     });
   }
 
@@ -54,40 +66,41 @@ class Chat extends Component {
 
     addMessage(message);
     socket.emit('sendMessage', message);
+
     this.scrollMessages();
   };
 
   scrollMessages = () =>
-    (this.msgContainer.current.scrollTop = this.msgContainer.current.scrollHeight);
+    (this.chatContainer.current.scrollTop = this.chatContainer.current.scrollHeight);
 
   render() {
     const { messages, settings } = this.props;
     return (
-      <section className="chat-container">
-        <div ref={this.msgContainer} className="chat-history">
-          {messages.map(message => {
-            return (
-              <Message
-                key={message.id}
-                username={
-                  message.userId === settings.userId
-                    ? 'current'
-                    : message.username
-                }
-                date={message.date}
-                format={settings.timeFormat}
-                text={message.text}
-              />
-            );
-          })}
-        </div>
-        <div className="chat-footer">
-          <InputMessage
-            onMessageSumit={this.handleSubmit}
-            controlEnter={settings.ctrlEnter === 'on'}
-          />
-        </div>
-      </section>
+      <Fragment>
+        <section ref={this.chatContainer} className="chat-container">
+          <div className="chat-history">
+            {messages.map(message => {
+              return (
+                <Message
+                  key={message.id}
+                  username={
+                    message.userId === settings.userId
+                      ? 'current'
+                      : message.username
+                  }
+                  date={message.date}
+                  format={settings.timeFormat}
+                  text={message.text}
+                />
+              );
+            })}
+          </div>
+        </section>
+        <ChatForm
+          onMessageSumit={this.handleSubmit}
+          controlEnter={settings.ctrlEnter === 'on'}
+        />
+      </Fragment>
     );
   }
 }
@@ -99,5 +112,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { addMessage }
+  { addMessage, notificationAdd, notificationReset }
 )(Chat);
