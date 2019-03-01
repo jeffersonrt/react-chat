@@ -1,0 +1,37 @@
+/*
+ * CHAT FORM
+ */
+
+@import '../../styles/themes';
+@import '../../styles/variables/variables';
+
+.chat-footer {
+  display: flex;
+  height: 50px;
+
+  form {
+    flex: 1 1 0;
+    display: flex;
+  }
+
+  input {
+    flex: 1 1 0;
+    border: none;
+    padding: $basePadding/2;
+    @include themed() {
+      color: themify('text');
+      background: themify('bg');
+    }
+  }
+
+  button {
+    font-size: 1.3em;
+    appearance: none;
+    border: none;
+    min-width: 60px;
+    @include themed() {
+      color: themify('text-secondary');
+      background: themify('bg');
+    }
+  }
+}

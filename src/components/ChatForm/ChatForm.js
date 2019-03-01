@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './ChatForm.scss';
 
 export default class InputMessage extends Component {
   state = {
@@ -41,7 +42,9 @@ export default class InputMessage extends Component {
             onChange={e => this.setState({ inputMessage: e.target.value })}
             value={this.state.inputMessage}
           />
-          <button type="submit">Send</button>
+          <button type="submit">
+            <i className="fas fa-paper-plane" />
+          </button>
         </form>
       </div>
     );

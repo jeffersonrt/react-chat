@@ -19,8 +19,9 @@ class SettingsForm extends Component {
       draggable: true
     });
 
-  handleFieldsChange = () => {
+  handleUpdate = () => {
     const { settingsUpdate } = this.props;
+    console.log(this.props);
     settingsUpdate(this.props.user.settings.values);
     this.notify();
   };
@@ -38,16 +39,11 @@ class SettingsForm extends Component {
       <section className="settings-container">
         <div className="options">
           <div className="form-container">
-            <form onSubmit={handleSubmit(() => {})}>
+            <form onSubmit={handleSubmit(this.handleUpdate)}>
               <div className="form-field">
                 <label>
                   <p>Username</p>
-                  <Field
-                    name="username"
-                    component="input"
-                    type="text"
-                    onBlur={this.handleFieldsChange}
-                  />
+                  <Field name="username" component="input" type="text" />
                 </label>
               </div>
 
@@ -60,7 +56,6 @@ class SettingsForm extends Component {
                     component="input"
                     type="radio"
                     value="light"
-                    onBlur={this.handleFieldsChange}
                   />
                   <span className="field-option">Light</span>
                 </label>
@@ -70,7 +65,6 @@ class SettingsForm extends Component {
                     component="input"
                     type="radio"
                     value="dark"
-                    onBlur={this.handleFieldsChange}
                   />
                   <span className="field-option">Dark</span>
                 </label>
@@ -84,7 +78,6 @@ class SettingsForm extends Component {
                     component="input"
                     type="radio"
                     value="12"
-                    onBlur={this.handleFieldsChange}
                   />
                   <span className="field-option">12 hours</span>
                 </label>
@@ -94,7 +87,6 @@ class SettingsForm extends Component {
                     component="input"
                     type="radio"
                     value="24"
-                    onBlur={this.handleFieldsChange}
                   />
                   <span className="field-option">24 hours</span>
                 </label>
@@ -108,7 +100,6 @@ class SettingsForm extends Component {
                     component="input"
                     type="radio"
                     value="on"
-                    onBlur={this.handleFieldsChange}
                   />
                   <span className="field-option">On</span>
                 </label>
@@ -118,7 +109,6 @@ class SettingsForm extends Component {
                     component="input"
                     type="radio"
                     value="off"
-                    onBlur={this.handleFieldsChange}
                   />
                   <span className="field-option">Off</span>
                 </label>
@@ -127,15 +117,16 @@ class SettingsForm extends Component {
               <div className="form-field">
                 <label>
                   <p>Language</p>
-                  <Field
-                    name="language"
-                    component="select"
-                    onBlur={this.handleFieldsChange}
-                  >
+                  <Field name="language" component="select">
                     <option value="en-US">English (US)</option>
                     <option value="pt-BR">Portuguese (BR)</option>
                   </Field>
                 </label>
+              </div>
+              <div className="form-field">
+                <button className="update-button" type="submit">
+                  Update
+                </button>
               </div>
             </form>
           </div>

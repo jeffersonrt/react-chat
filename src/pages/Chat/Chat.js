@@ -67,11 +67,15 @@ class Chat extends Component {
     addMessage(message);
     socket.emit('sendMessage', message);
 
-    this.scrollMessages();
+    let to = setTimeout(() => {
+      clearTimeout(to);
+      this.scrollMessages();
+    }, 100);
   };
 
-  scrollMessages = () =>
-    (this.chatContainer.current.scrollTop = this.chatContainer.current.scrollHeight);
+  scrollMessages = () => {
+    this.chatContainer.current.scrollTop = this.chatContainer.current.scrollHeight;
+  };
 
   render() {
     const { messages, settings } = this.props;
