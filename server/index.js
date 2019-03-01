@@ -24,6 +24,7 @@ io.on('connection', socket => {
   console.log(`Socket conectado: ${socket.id}`);
   socket.emit('previousMessages', messages);
   socket.on('sendMessage', data => {
+    console.log(`sendMessage: ${data}`);
     messages.push(data);
     socket.broadcast.emit('receivedMessage', data);
   });

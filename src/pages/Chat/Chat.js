@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { ReceivedMessage, SendMessage } from '../../services/socket.io';
+import io from 'socket.io-client';
+import env from '../../env';
+
 import Message from '../../components/Message/Message';
 import InputMessage from '../../components/InputMessage/InputMessage';
 import { addMessage } from '../../store/actions';
 
 import './Chat.scss';
+const socket = io(env.SOCKET_URL);
 
 class Chat extends Component {
   constructor(props) {
@@ -15,12 +18,13 @@ class Chat extends Component {
   }
 
   componentDidMount() {
+    // console.log(this.props);
     this.socket();
   }
 
   socket() {
     const { addMessage } = this.props;
-    ReceivedMessage(message => {
+    socket.on(message => {
       addMessage({
         userId: message.userId,
         username: message.username,
@@ -39,8 +43,7 @@ class Chat extends Component {
     };
 
     addMessage(message);
-    SendMessage(message);
-    // socket.emit('sendMessage', message);
+    socket.emit('sendMessage', message);
     this.scrollMessages();
   };
 
