@@ -22,9 +22,7 @@ app.use('/', (req, res) => {
 let messages = [];
 io.on('connection', socket => {
   console.log(`Socket conectado: ${socket.id}`);
-
   socket.emit('previousMessages', messages);
-
   socket.on('sendMessage', data => {
     messages.push(data);
     socket.broadcast.emit('receivedMessage', data);
@@ -32,5 +30,5 @@ io.on('connection', socket => {
 });
 
 server.listen(3001, function() {
-  console.log('SOCKET SERVER UP => listening on *:3001');
+  console.log('SOCKET SERVER UP | listening on *:3001');
 });

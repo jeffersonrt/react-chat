@@ -13,6 +13,7 @@ export const addMessage = message => async dispatch => {
 };
 
 export const messageReceived = message => async dispatch => {
+  console.log('message', message);
   dispatch({
     type: 'message/RECEIVED',
     payload: {

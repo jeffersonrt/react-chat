@@ -1,7 +1,7 @@
 const userId = Math.floor(Math.random() * (1000 - 0)) + 0;
 const initialState = {
   userId,
-  username: `guest${userId}`,
+  username: `guest`,
   theme: 'light',
   timeFormat: '12',
   ctrlEnter: 'on',

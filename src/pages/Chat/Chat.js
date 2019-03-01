@@ -25,10 +25,9 @@ class Chat extends Component {
     const { addMessage } = this.props;
 
     socket.on('receivedMessage', function(message) {
-      console.log('receivedMessage', message);
       addMessage({
         userId: message.userId,
-        username: message.user,
+        username: message.username,
         text: message.text
       });
     });
@@ -36,8 +35,6 @@ class Chat extends Component {
 
   handleSubmit = text => {
     const { addMessage, settings } = this.props;
-
-    console.log(settings.username);
 
     let message = {
       userId: settings.userId,
@@ -59,10 +56,6 @@ class Chat extends Component {
       <section className="chat-container">
         <div ref={this.msgContainer} className="chat-history">
           {messages.map(message => {
-            // let teste =
-            //   message.userId === settings.userId ? 'current' : message.username;
-            // console.log('teste-username', teste);
-            // console.log('message', message);
             return (
               <Message
                 key={message.id}

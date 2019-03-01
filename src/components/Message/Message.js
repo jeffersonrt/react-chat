@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 
 import { formatDate } from '../../utils';
 
@@ -22,11 +22,11 @@ const Message = ({ username, date, format, text }) => {
   );
 };
 
-Message.propTypes = {
-  // username: PropTypes.string.isRequired,
-  // date: PropTypes.object.isRequired,
-  // format: PropTypes.string.isRequired,
-  // text: PropTypes.string.isRequired
-};
+// Message.propTypes = {
+// username: PropTypes.string.isRequired,
+// date: PropTypes.object.isRequired,
+// format: PropTypes.string.isRequired,
+// text: PropTypes.string.isRequired
+// };
 
 export default Message;
