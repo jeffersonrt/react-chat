@@ -19,8 +19,7 @@ class SettingsForm extends Component {
       draggable: true
     });
 
-  handleFieldsChange = e => {
-    console.log(this.props);
+  handleFieldsChange = () => {
     const { settingsUpdate } = this.props;
     settingsUpdate(this.props.user.settings.values);
     this.notify();
