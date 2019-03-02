@@ -79,7 +79,9 @@ class Chat extends Component {
   };
 
   scrollMessages = () => {
-    this.chatContainer.current.scrollTop = this.chatContainer.current.scrollHeight;
+    if (this.chatContainer.current) {
+      this.chatContainer.current.scrollTop = this.chatContainer.current.scrollHeight;
+    }
   };
 
   render() {
